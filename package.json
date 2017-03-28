@@ -48,5 +48,7 @@
     "distribution",
     "README.md"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "babylon": "^6.16.1"
+  }
 }
