@@ -1,0 +1,8 @@
+node_modules
+distribution
+.DS_Store
+package
+name-parameters*.tgz
+npm-debug.log
+.vscode
+coverage
