@@ -13,7 +13,10 @@ module.exports = f => {
           node.params.reduce((all, param) => [ ...all, param.name ], []),
         ExpressionStatement: node =>
           node.expression.params.reduce(
-            (all, param) => [ ...all, param.name || param.left.name ],
+            (all, param) =>
+            param.type === `ObjectPattern`
+            ? [ ...all, ...param.properties.map((prop, i) => i) ]
+            : [ ...all, param.name || param.left.name ],
             []
           )
       }[node.type](node)))

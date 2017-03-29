@@ -6,6 +6,7 @@ const c = c => c
 const d = () => {}
 const e = (stardate, sector) => {}
 const f = (engine = `sterling`, steering) => `e`
+const g = ({ a, b }) => {}
 
 describe(`parse`, () => {
   it(`is a function`, () => {
@@ -34,5 +35,9 @@ describe(`parse`, () => {
 
   test(`['engine', 'steering']`, () => {
     expect(parse(f)).toEqual([`engine`, `steering`])
+  })
+
+  test(`[0, 1]`, () => {
+    expect(parse(g)).toEqual([0, 1])
   })
 })
