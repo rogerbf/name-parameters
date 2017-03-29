@@ -33,6 +33,7 @@ module.exports = f => {
       .map(params => params.split(`,`))
       .pop()
       .map(param => param.trim())
+      .filter(param => param && param.length > 0)
     )
   }
 }
