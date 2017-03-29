@@ -1,43 +1,47 @@
 const parse = require(`./parse-function-parameter-names`)
 
-function a (name) {}
-const b = function (name, age) {}
-const c = c => c
-const d = () => {}
-const e = (stardate, sector) => {}
-const f = (engine = `sterling`, steering) => `e`
-const g = ({ a, b }) => {}
-
 describe(`parse`, () => {
   it(`is a function`, () => {
     expect(typeof (parse)).toBe(`function`)
   })
 
-  test(`['name']`, () => {
-    expect(parse(a)).toEqual([ `name` ])
+  test(`function a (name) {}`, () => {
+    function fn (name) {}
+    expect(parse(fn)).toEqual([ `name` ])
   })
 
-  test(`['name', 'age']`, () => {
-    expect(parse(b)).toEqual([ `name`, `age` ])
+  test(`function (name, age) {}`, () => {
+    const fn = function (name, age) {}
+    expect(parse(fn)).toEqual([ `name`, `age` ])
   })
 
-  test(`['c']`, () => {
-    expect(parse(c)).toEqual([`c`])
+  test(`function () {}`, () => {
+    const fn = function () {}
+    expect(parse(fn)).toEqual([])
   })
 
-  test(`[]`, () => {
-    expect(parse(d)).toEqual([])
+  test(`c => c`, () => {
+    const fn = c => c
+    expect(parse(fn)).toEqual([`c`])
   })
 
-  test(`['stardate', 'sector']`, () => {
-    expect(parse(e)).toEqual([`stardate`, `sector`])
+  test(`() => {}`, () => {
+    const fn = () => {}
+    expect(parse(fn)).toEqual([])
   })
 
-  test(`['engine', 'steering']`, () => {
-    expect(parse(f)).toEqual([`engine`, `steering`])
+  test(`(stardate, sector) => {}`, () => {
+    const fn = (stardate, sector) => {}
+    expect(parse(fn)).toEqual([`stardate`, `sector`])
   })
 
-  test(`[0, 1]`, () => {
-    expect(parse(g)).toEqual([0, 1])
+  test(`(engine = 'sterling', steering) => 'e'`, () => {
+    const fn = (engine = `sterling`, steering) => `e`
+    expect(parse(fn)).toEqual([`engine`, `steering`])
+  })
+
+  test(`({ a, b }) => {}`, () => {
+    const fn = ({ a, b }) => {}
+    expect(parse(fn)).toEqual([0, 1])
   })
 })
