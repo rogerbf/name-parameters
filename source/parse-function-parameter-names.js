@@ -1,39 +1,26 @@
 const { parse } = require(`babylon`)
 
-module.exports = f => {
-  try {
-    return (
-      parse(f.toString()).program.body
-      .filter(node =>
-        node.type === `ExpressionStatement` ||
-        node.type === `FunctionDeclaration`
-      )
-      .map(node => ({
-        FunctionDeclaration: node =>
-          node.params.reduce((all, param) => [ ...all, param.name ], []),
-        ExpressionStatement: node =>
-          node.expression.params.reduce(
-            (all, param) =>
-            param.type === `ObjectPattern`
-            ? [ ...all, ...param.properties.map((prop, i) => i) ]
-            : [ ...all, param.name || param.left.name ],
-            []
-          )
-      }[node.type](node)))
-      .pop()
-    )
-  } catch (error) {
-    return (
-      [ f.toString() ]
-      .map(stringified => stringified.slice(0, stringified.indexOf(`{`)))
-      .map(head => head.slice(
-        head.indexOf(`(`) + 1,
-        head.lastIndexOf(`)`)
-      ))
-      .map(params => params.split(`,`))
-      .pop()
-      .map(param => param.trim())
-      .filter(param => param && param.length > 0)
-    )
-  }
+const parseParams = {
+  Identifier: param => [ param.name ],
+  AssignmentPattern: param => [ param.left.name ],
+  ObjectPattern: param => param.properties.reduce(
+    (all, property) => [...all, property.key.name],
+    []
+  )
 }
+
+module.exports = f =>
+  [
+    parse(`var functionWrapper = ${f.toString()}`)
+    .program.body.pop().declarations.pop().init
+  ]
+  .filter(node =>
+    node.type === `FunctionExpression` ||
+    node.type === `ArrowFunctionExpression`
+  )
+  .map(({ params }) => params)
+  .pop()
+  .reduce((params, param) => [
+    ...params,
+    ...parseParams[param.type](param)
+  ], [])

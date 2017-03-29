@@ -20,14 +20,24 @@ describe(`parse`, () => {
     expect(parse(fn)).toEqual([])
   })
 
-  test(`c => c`, () => {
-    const fn = c => c
-    expect(parse(fn)).toEqual([`c`])
+  test(`function ({ a, b }) {}`, () => {
+    const fn = function ({ a, b }) {}
+    expect(parse(fn)).toEqual([ `a`, `b` ])
+  })
+
+  test(`function named ({ a, b }) {}`, () => {
+    const fn = function named ({ a, b }) {}
+    expect(parse(fn)).toEqual([ `a`, `b` ])
   })
 
   test(`() => {}`, () => {
     const fn = () => {}
     expect(parse(fn)).toEqual([])
+  })
+
+  test(`c => c`, () => {
+    const fn = c => c
+    expect(parse(fn)).toEqual([`c`])
   })
 
   test(`(stardate, sector) => {}`, () => {
@@ -42,6 +52,6 @@ describe(`parse`, () => {
 
   test(`({ a, b }) => {}`, () => {
     const fn = ({ a, b }) => {}
-    expect(parse(fn)).toEqual([0, 1])
+    expect(parse(fn)).toEqual([`a`, `b`])
   })
 })
