@@ -1,4 +1,4 @@
-import nameParameters from './index'
+const nameParameters = require(`./set-parameter-names`)
 
 describe(`nameParameters`, () => {
   it(`is a function`, () => {
