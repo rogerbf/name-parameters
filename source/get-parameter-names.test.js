@@ -1,4 +1,4 @@
-const parse = require(`./parse-function-parameter-names`)
+const parse = require(`./get-parameter-names`)
 
 describe(`parse`, () => {
   it(`is a function`, () => {
