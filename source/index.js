@@ -1,4 +1,8 @@
-const getNames = require(`./get-parameter-names`)
-const setNames = require(`./set-parameter-names`)
+const getParameterNames = require(`./get-parameter-names`)
+const buildArgumentsArray = require(`./build-arguments-array`)
+const nameParameters = require(`./name-parameters`)
 
-module.exports = {}
+module.exports = nameParameters.bind(
+  null,
+  { getParameterNames, buildArgumentsArray }
+)
