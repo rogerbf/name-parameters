@@ -3,10 +3,11 @@ const { parse } = require(`babylon`)
 const parseParams = {
   Identifier: param => [ param.name ],
   AssignmentPattern: param => [ param.left.name ],
-  ObjectPattern: param => param.properties.reduce(
-    (all, property) => [ ...all, property.key.name ],
-    []
-  )
+  // ObjectPattern: param => param.properties.reduce(
+  //   (all, property) => [ ...all, property.key.name ],
+  //   []
+  // )
+  ObjectPattern: param => [{}]
 }
 
 module.exports = f =>

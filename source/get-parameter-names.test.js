@@ -22,12 +22,12 @@ describe(`parse`, () => {
 
   test(`function ({ a, b }) {}`, () => {
     const fn = function ({ a, b }) {}
-    expect(parse(fn)).toEqual([ `a`, `b` ])
+    expect(parse(fn)).toEqual([{}])
   })
 
   test(`function named ({ a, b }) {}`, () => {
     const fn = function named ({ a, b }) {}
-    expect(parse(fn)).toEqual([ `a`, `b` ])
+    expect(parse(fn)).toEqual([{}])
   })
 
   test(`() => {}`, () => {
@@ -52,6 +52,6 @@ describe(`parse`, () => {
 
   test(`({ a, b }) => {}`, () => {
     const fn = ({ a, b }) => {}
-    expect(parse(fn)).toEqual([`a`, `b`])
+    expect(parse(fn)).toEqual([{}])
   })
 })
