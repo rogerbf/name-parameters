@@ -40,4 +40,11 @@ describe(`build`, () => {
     const names = [ `first`, `second`, `third` ]
     expect(build(names, options)).toEqual([ `a`, undefined, `c` ])
   })
+
+  it(`returns [ { name: 'unnamed' }, 'b' ]`, () => {
+    // Numbers are not allowed as function parameter names, so this works
+    const options = { '0': { name: `unnamed` }, b: `b` }
+    const names = [ 0, `b` ]
+    expect(build(names, options)).toEqual([ { name: `unnamed` }, `b` ])
+  })
 })
