@@ -20,15 +20,17 @@ describe(`parse`, () => {
     expect(parse(fn)).toEqual([])
   })
 
-  test(`function ({ a, b }) {}`, () => {
-    const fn = function ({ a, b }) {}
-    expect(parse(fn)).toEqual([{}])
-  })
+  // Second version
+  // test(`function ({ a, b }) {}`, () => {
+  //   const fn = function ({ a, b }) {}
+  //   expect(parse(fn)).toEqual([{}])
+  // })
 
-  test(`function named ({ a, b }) {}`, () => {
-    const fn = function named ({ a, b }) {}
-    expect(parse(fn)).toEqual([{}])
-  })
+  // Second version
+  // test(`function named ({ a, b }) {}`, () => {
+  //   const fn = function named ({ a, b }) {}
+  //   expect(parse(fn)).toEqual([{}])
+  // })
 
   test(`() => {}`, () => {
     const fn = () => {}
@@ -50,8 +52,19 @@ describe(`parse`, () => {
     expect(parse(fn)).toEqual([`engine`, `steering`])
   })
 
+  // Second version
+  // test(`({ a, b }) => {}`, () => {
+  //   const fn = ({ a, b }) => {}
+  //   expect(parse(fn)).toEqual([{}])
+  // })
+
   test(`({ a, b }) => {}`, () => {
     const fn = ({ a, b }) => {}
-    expect(parse(fn)).toEqual([{}])
+    expect(parse(fn)).toEqual([ 0 ])
+  })
+
+  test(`(d, { c }) => {}`, () => {
+    const fn = (d, { c }) => {}
+    expect(parse(fn)).toEqual([ `d`, 1 ])
   })
 })

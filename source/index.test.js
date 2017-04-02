@@ -36,15 +36,24 @@ test(`function named (name = 'unnamed', age) {}`, () => {
   expect(result).toEqual({ name: `unnamed`, age: 30 })
 })
 
-// test(`function named ({ name: { first, last } }, age) {}`, () => {
-//   function named ({ name: { first, last } }, age) {
-//     return { first, last, age }
-//   }
-//   const wrapped = wrap(named)
+test(`function named ({ name: { first, last } }, age) {}`, () => {
+  function named ({ name: { first, last } }, age) {
+    return { first, last, age }
+  }
+  const wrapped = wrap(named)
+  const args = {
+    0: {
+      name: {
+        first: `James`,
+        last: `Kirk`
+      }
+    },
+    age: 30
+  }
 
-//   expect(wrapped({ name: { first: `James`, last: `Kirk` }, age: 40 }))
-//   .toEqual(named({ name: { first: `James`, last: `Kirk` } }, 40))
-// })
+  expect(wrapped(args))
+  .toEqual(named(args[0], 30))
+})
 
 test(`() => {}`, () => {
   const fn = () => `den andra sidan`
@@ -74,12 +83,21 @@ test(`(name = 'unnamed', age) => {}`, () => {
   expect(result).toEqual({ name: `unnamed`, age: 30 })
 })
 
-// test(`({ name: { first, last } }, age) => {}`, () => {
-//   const named = ({ name: { first, last } }, age) => {
-//     return { first, last, age }
-//   }
-//   const wrapped = wrap(named)
+test(`({ name: { first, last } }, age) => {}`, () => {
+  const named = ({ name: { first, last } }, age) => {
+    return { first, last, age }
+  }
+  const wrapped = wrap(named)
+  const args = {
+    0: {
+      name: {
+        first: `James`,
+        last: `Kirk`
+      }
+    },
+    age: 30
+  }
 
-//   expect(wrapped({ name: { first: `James`, last: `Kirk` }, age: 40 }))
-//   .toEqual(named({ name: { first: `James`, last: `Kirk` } }, 40))
-// })
+  expect(wrapped(args))
+  .toEqual(named(args[0], 30))
+})
