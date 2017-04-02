@@ -20,18 +20,6 @@ describe(`parse`, () => {
     expect(parse(fn)).toEqual([])
   })
 
-  // Second version
-  // test(`function ({ a, b }) {}`, () => {
-  //   const fn = function ({ a, b }) {}
-  //   expect(parse(fn)).toEqual([{}])
-  // })
-
-  // Second version
-  // test(`function named ({ a, b }) {}`, () => {
-  //   const fn = function named ({ a, b }) {}
-  //   expect(parse(fn)).toEqual([{}])
-  // })
-
   test(`() => {}`, () => {
     const fn = () => {}
     expect(parse(fn)).toEqual([])
@@ -51,12 +39,6 @@ describe(`parse`, () => {
     const fn = (engine = `sterling`, steering) => `e`
     expect(parse(fn)).toEqual([`engine`, `steering`])
   })
-
-  // Second version
-  // test(`({ a, b }) => {}`, () => {
-  //   const fn = ({ a, b }) => {}
-  //   expect(parse(fn)).toEqual([{}])
-  // })
 
   test(`({ a, b }) => {}`, () => {
     const fn = ({ a, b }) => {}
