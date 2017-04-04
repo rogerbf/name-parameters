@@ -1,7 +1,7 @@
 {
   "name": "name-parameters",
   "version": "0.0.1",
-  "description": "make a parameter-expecting function callable with an options object",
+  "description": "make function accept options object instead of parameters",
   "main": "./distribution/index.js",
   "scripts": {
     "test": "jest --config .jest",
@@ -19,7 +19,6 @@
     "watch:coverage": "jest --config .jest --coverage --watch"
   },
   "keywords": [
-    "utility",
     "options",
     "function",
     "named parameters",
